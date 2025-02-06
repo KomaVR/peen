@@ -41,7 +41,7 @@ app.post('/attack', (req, res) => {
     }
 
     // Send the result of the attack back to the client
-    res.send({ message: 'Attack completed successfully' });
+    res.send({ message: 'Attack completed successfully', data: '' });
 });
 
 app.get('/servers', (req, res) => {
