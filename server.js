@@ -31,13 +31,17 @@ app.post('/attack', (req, res) => {
     // Log the target IP address and port number
     console.log(`Target IP: ${ip}, Target Port: ${port}`);
 
-    // Perform application layer attacks on the target IP address and port number
-    perform_application_layer_attacks(ip, port).then(() => {
-        res.status(200).send({ message: 'Attack completed successfully' });
-    }).catch((e) => {
+    try {
+        // Simulate a simple application layer attack by sending a GET request
+        sock.write("GET / HTTP/1.0\r\nHost: invalid-host\r\nConnection: close\r\n\r\n");
+    } catch (e) {
         console.log(`Error performing attack: ${e}`);
         res.status(500).send({ error: 'Error performing attack' });
-    });
+        return;
+    }
+
+    // Send the result of the attack back to the client
+    res.send({ message: 'Attack completed successfully' });
 });
 
 app.get('/servers', (req, res) => {
